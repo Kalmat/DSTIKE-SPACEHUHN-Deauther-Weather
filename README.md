@@ -49,7 +49,7 @@ You can upload the source, as it is or modified, to your own hardware:
 2. Double click "esp8266_deauther.ino" file. Arduino IDE will open (if properly installed)
 3. Configure board options under Tools menu option. This configuration worked in my case (please note that "Port: COM5" might be different in your system):
 
-      ![](Configuration.png)
+     <img src='Configuration.png' alt='Arduino IDE Configuration' width='200' />
 
 4. Click "Upload" button/option
 5. Wait until it finishes (compile -> upload)
