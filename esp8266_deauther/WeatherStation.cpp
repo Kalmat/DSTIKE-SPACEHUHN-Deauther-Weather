@@ -236,7 +236,7 @@ void getTime() {
 
   #ifdef RTC_DS3231
     getTimeRTC();
-    if (clockYear != 2023) {
+    if (clockYear <= 2000) {
       getTimeNTP();
       if (clockYear > 1900) {
         setTimeRTCfromNTP(false);

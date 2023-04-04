@@ -86,7 +86,7 @@ void weatherRotate();
 #endif // #ifdef KEYS_IN_SEPARATE_FILE
 
 // CLOCK
-#define TZ              0       // (utc+) TZ in hours
+#define TZ              1       // (utc+) TZ in hours
 #define DST_MN          60      // use 60mn for summer time in some countries
 #define TZ_MN           ((TZ)*60)
 #define TZ_SEC          ((TZ)*3600)
