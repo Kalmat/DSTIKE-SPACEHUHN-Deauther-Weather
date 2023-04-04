@@ -59,7 +59,7 @@ void drawHeaderOverlay(OLEDDisplay *display, OLEDDisplayUiState* state);
 void getTime();
 void getTimeRTC();
 void getTimeNTP();
-void setTimeRTCfromNTP(bool updateTime);
+void setTimeRTCfromNTP();
 void weatherUP();
 void weatherDOWN();
 void weatherRotate();

@@ -10,6 +10,7 @@
 time_t now;
 struct tm* timeInfo;
 
+bool firstTimeUpdate = true;
 int clockHour = 6;
 int clockMinute = 0;
 int clockSecond = 0;
@@ -155,18 +156,22 @@ void updateData(OLEDDisplay *display) {
     display->clear();
   
     drawProgress(display, 10, "Updating time...");
-    getTime();
-    if (clockYear <= 2000) {
+    if (firstTimeUpdate) {
+      firstTimeUpdate = false;
       Serial.println("Updating Internet Time & Date...");
       configTime(TZ_SEC, DST_SEC, "pool.ntp.org");
       uint8_t counter = 0;
-      while (clockYear <= 2000 && counter < 6) {
-        Serial.println("Waiting for NTP server reply... " + String(counter) + " " + String(clockYear) + " " + String(myClock.getYear()));
+      while (clockYear <= 2000 && counter < 10) {
+        Serial.println("Waiting for NTP server reply... " + String(counter) + " " + String(clockYear));
         delay(500);
-        getTime();
+        getTimeNTP();
         counter++;
       }
+      #ifdef RTC_DS3231
+        setTimeRTCfromNTP();
+      #endif // #ifdef RTC_DS3231
     }
+    
     drawProgress(display, 30, "Updating weather...");
     currentWeatherClient.setMetric(IS_METRIC);
     currentWeatherClient.setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
@@ -180,12 +185,11 @@ void updateData(OLEDDisplay *display) {
     forecastClient.updateForecastsById(forecasts, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID, MAX_FORECASTS);
 
     drawProgress(display, 100, "Done...");
-    delay(1000);
   } else {
     Serial.println("NOT connected to personal WiFi. No Weather data will be availabe");
     drawProgress(display, 100, "WiFi unavailable");
-    delay(1000);
   }
+  delay(1000);
 }
 
 void drawProgress(OLEDDisplay *display, int percentage, String label) {
@@ -211,37 +215,31 @@ void getTimeRTC() {
 void getTimeNTP() {
   now = time(nullptr);
   timeInfo = localtime(&now);
+
   clockHour = timeInfo->tm_hour;
   clockMinute = timeInfo->tm_min;
   clockSecond = timeInfo->tm_sec;
   clockDoW = timeInfo->tm_wday;
   clockDate = timeInfo->tm_mday;
-  clockMonth = timeInfo->tm_mon+1;
+  clockMonth = timeInfo->tm_mon + 1;
   clockYear = timeInfo->tm_year + 1900;
 }
 
-void setTimeRTCfromNTP(bool updateTime) {
-  if (updateTime) {
-    getTimeNTP();
+void setTimeRTCfromNTP() {
+  getTimeNTP();
+  if (clockYear > 1970) {
+    myClock.setHour(clockHour);
+    myClock.setMinute(clockMinute);
+    myClock.setSecond(clockSecond);
+    myClock.setDate(clockDate);
+    myClock.setMonth(clockMonth);
+    myClock.setYear(clockYear - 2000);
   }
-  myClock.setHour(clockHour);
-  myClock.setMinute(clockMinute);
-  myClock.setSecond(clockSecond);
-  myClock.setDate(clockDate);
-  myClock.setMonth(clockMonth);
-  myClock.setYear(clockYear - 2000);
 }
 
 void getTime() {
-
   #ifdef RTC_DS3231
     getTimeRTC();
-    if (clockYear <= 2000) {
-      getTimeNTP();
-      if (clockYear > 1900) {
-        setTimeRTCfromNTP(false);
-      }
-    }
   #else // #ifdef RTC_DS3231
     getTimeNTP();
   #endif // #ifdef RTC_DS3231
