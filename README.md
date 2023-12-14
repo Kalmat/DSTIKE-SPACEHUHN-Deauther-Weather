@@ -2,8 +2,8 @@
 
 ### I purchased one of these, just for fun:
 
-
-<img src='https://cdn.shopify.com/s/files/1/0136/5245/9584/products/1_0547faf1-3711-4ce5-882d-bb8f3117a32e_1024x1024@2x.jpg?v=1612835610' alt='DSTIKE SpaceHuhn Deauther V3' width='200' />
+https://dstike.com/cdn/shop/files/1_4760f1d1-5786-4742-acdf-baf2bdcb974f_1024x1024@2x.jpg?v=1686788275
+<img src='https://dstike.com/cdn/shop/files/1_4760f1d1-5786-4742-acdf-baf2bdcb974f_1024x1024@2x.jpg?v=1686788275' alt='DSTIKE SpaceHuhn Deauther V3' width='200' />
 
 (DSTIKE&SPACEHUHN Deauther V3)
 
