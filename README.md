@@ -2,7 +2,6 @@
 
 ### I purchased one of these, just for fun:
 
-https://dstike.com/cdn/shop/files/1_4760f1d1-5786-4742-acdf-baf2bdcb974f_1024x1024@2x.jpg?v=1686788275
 <img src='https://dstike.com/cdn/shop/files/1_4760f1d1-5786-4742-acdf-baf2bdcb974f_1024x1024@2x.jpg' alt='DSTIKE SpaceHuhn Deauther V3' width='200' />
 
 (DSTIKE&SPACEHUHN Deauther V3)
